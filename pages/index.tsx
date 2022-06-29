@@ -1,6 +1,8 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { Header, Banner, Row } from '../components';
+import { useRecoilValue } from 'recoil';
+import { modalState } from '../atoms/modalAtom';
+import { Header, Banner, Row, Modal } from '../components';
 import useAuth from '../hooks/useAuth';
 import { Movie } from '../typings';
 import requests from '../utils/requests';
@@ -26,7 +28,9 @@ const Home = ({
 	topRated,
 	trendingNow,
 }: Props) => {
-	const { loading } = useAuth();
+	const { user, loading } = useAuth();
+	const showModal = useRecoilValue(modalState);
+
 	if (loading) return null;
 
 	const rowList = [
@@ -55,7 +59,7 @@ const Home = ({
 					))}
 				</section>
 			</main>
-			{/* Modal */}
+			{showModal && <Modal />}
 		</div>
 	);
 };
