@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { Header, Banner } from '../components';
+import { Header, Banner, Row } from '../components';
 import { Movie } from '../typings';
 import requests from '../utils/requests';
 
@@ -12,19 +12,29 @@ interface Props {
 	comedyMovies: Movie[];
 	horrorMovies: Movie[];
 	romanceMovies: Movie[];
-	documenries: Movie[];
+	documentaries: Movie[];
 }
 
 const Home = ({
 	netflixOriginals,
 	actionMovies,
 	comedyMovies,
-	documenries,
+	documentaries,
 	horrorMovies,
 	romanceMovies,
 	topRated,
 	trendingNow,
 }: Props) => {
+	const rowList = [
+		{ title: 'Trending Now', movies: trendingNow },
+		{ title: 'Top Rated', movies: topRated },
+		{ title: 'Action Thrillers', movies: actionMovies },
+		{ title: 'Comedies', movies: comedyMovies },
+		{ title: 'Scary Movies', movies: horrorMovies },
+		{ title: 'Romance Movies', movies: romanceMovies },
+		{ title: 'Romance Movies', movies: documentaries },
+	];
+
 	return (
 		<div className="relative h-screen bg-gradient-to-b from-gray-900/10 to-[#010511] lg:h-[140vh]">
 			<Head>
@@ -36,13 +46,9 @@ const Home = ({
 			<main className="relative pl-4 pb-24 lg:space-y-24 lg:pl-16 ">
 				<Banner netflixOriginals={netflixOriginals} />
 				<section>
-					{/* Row */}
-					{/* Row */}
-					{/* Row */}
-					{/* Row */}
-					{/* Row */}
-					{/* Row */}
-					{/* Row */}
+					{rowList.map((item) => (
+						<Row item={item} />
+					))}
 				</section>
 			</main>
 			{/* Modal */}
