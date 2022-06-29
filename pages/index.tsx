@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Header, Banner, Row } from '../components';
+import useAuth from '../hooks/useAuth';
 import { Movie } from '../typings';
 import requests from '../utils/requests';
 
@@ -25,6 +26,9 @@ const Home = ({
 	topRated,
 	trendingNow,
 }: Props) => {
+	const { loading } = useAuth();
+	if (loading) return null;
+
 	const rowList = [
 		{ title: 'Trending Now', movies: trendingNow },
 		{ title: 'Top Rated', movies: topRated },
