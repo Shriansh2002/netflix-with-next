@@ -64,49 +64,54 @@ function Modal() {
 					<XIcon className="h-6 w-6" />
 				</button>
 
-				<div className="relative pt-[56.25%]">
-					<ReactPlayer
-						url={`https://www.youtube.com/watch?v=${trailer}`}
-						width="100%"
-						height="100%"
-						style={{ position: 'absolute', top: '0', left: '0' }}
-						playing
-						muted={muted}
-					/>
+				{trailer && (
+					<div className="relative pt-[56.25%]">
+						<ReactPlayer
+							url={`https://www.youtube.com/watch?v=${trailer}`}
+							width="100%"
+							height="100%"
+							style={{
+								position: 'absolute',
+								top: '0',
+								left: '0',
+							}}
+							playing
+							muted={muted}
+						/>
 
-					<div className="absolute bottom-10 flex w-full items-center justify-between px-10">
-						<div className="flex space-x-2">
-							<button className="flex items-center gap-x-2 rounded bg-white px-8 text-xl font-bold text-black transition hover:bg-[#e6e6e6]">
-								<FaPlay className="h-7 w-7 text-black" />
-								Play
-							</button>
+						<div className="absolute bottom-10 flex w-full items-center justify-between px-10">
+							<div className="flex space-x-2">
+								<button className="flex items-center gap-x-2 rounded bg-white px-8 text-xl font-bold text-black transition hover:bg-[#e6e6e6]">
+									<FaPlay className="h-7 w-7 text-black" />
+									Play
+								</button>
 
-							<button className="modalButton">
-								<PlusIcon className="h-7 w-7" />
-							</button>
+								<button className="modalButton">
+									<PlusIcon className="h-7 w-7" />
+								</button>
 
-							<button className="modalButton">
-								<ThumbUpIcon className="h-6 w-6" />
+								<button className="modalButton">
+									<ThumbUpIcon className="h-6 w-6" />
+								</button>
+							</div>
+							<button
+								className="modalButton"
+								onClick={() => setMuted((ps) => !ps)}
+							>
+								{muted ? (
+									<VolumeOffIcon className="h-6 w-6" />
+								) : (
+									<VolumeUpIcon className="h-6 w-6" />
+								)}
 							</button>
 						</div>
-						<button
-							className="modalButton"
-							onClick={() => setMuted((ps) => !ps)}
-						>
-							{muted ? (
-								<VolumeOffIcon className="h-6 w-6" />
-							) : (
-								<VolumeUpIcon className="h-6 w-6" />
-							)}
-						</button>
 					</div>
-				</div>
-
+				)}
 				<div className="flex space-x-16 rounded-b-md bg-[#181818] px-10 py-8">
 					<div className="space-y-6 text-lg">
 						<div className="flex items-center space-x-2 text-sm">
 							<p className="font-semibold text-green-400">
-								{movie!.vote_average * 10}% Match
+								{movie!.vote_average.toFixed(2) * 10}% Match
 							</p>
 							<p className="font-light">
 								{movie?.release_date || movie?.first_air_date}
