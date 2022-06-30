@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRecoilValue } from 'recoil';
 import { modalState } from '../atoms/modalAtom';
-import { Header, Banner, Row, Modal } from '../components';
+import { Header, Banner, Row, Modal, Plans } from '../components';
 import useAuth from '../hooks/useAuth';
 import { Movie } from '../typings';
 import requests from '../utils/requests';
@@ -30,8 +30,9 @@ const Home = ({
 }: Props) => {
 	const { user, loading } = useAuth();
 	const showModal = useRecoilValue(modalState);
+	const subscription = false;
 
-	if (loading) return null;
+	if (loading || subscription === null) return null;
 
 	const rowList = [
 		{ title: 'Trending Now', movies: trendingNow },
@@ -42,6 +43,8 @@ const Home = ({
 		{ title: 'Romance Movies', movies: romanceMovies },
 		{ title: 'Romance Movies', movies: documentaries },
 	];
+
+	if (!subscription) return <Plans />;
 
 	return (
 		<div className="relative h-screen bg-gradient-to-b from-gray-900/10 to-[#010511] lg:h-[140vh]">
